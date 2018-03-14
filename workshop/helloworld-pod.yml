@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: helloworld
+  labels:
+    component: helloworld
+    type: springboot
+    access: external
+spec:
+  containers:
+    - image: dpokusa/helloworld:1.0-bytebay
+      name: helloworld
+      ports:
+        - containerPort: 8080
+

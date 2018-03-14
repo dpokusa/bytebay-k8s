@@ -1,0 +1,11 @@
+use issues
+
+db.createUser(
+  { user: "issues",
+  pwd: "issues",
+  roles: [
+    { role: "readWrite", db: "issues" } 
+  ]
+}  
+    
+)
