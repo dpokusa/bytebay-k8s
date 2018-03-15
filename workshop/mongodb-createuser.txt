@@ -2,7 +2,7 @@ use issues
 
 db.createUser(
   { user: "issues",
-  pwd: "issues",
+  pwd: "password",
   roles: [
     { role: "readWrite", db: "issues" } 
   ]
