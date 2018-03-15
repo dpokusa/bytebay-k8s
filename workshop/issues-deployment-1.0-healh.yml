@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: issues
+  labels:
+    type: springboot
+    module: issues
+spec:
+  selector:
+    matchLabels:
+      module: issues 
+  template:
+    metadata:
+      labels:
+        type: module
+        access: external
+        module: issues
+    spec:
+      containers:
+        - name: issues
+          image: dpokusa/issues:1.0-bytebay
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          ports:
+          - containerPort: 8080
+          env:
+          - name: LOG_APPENDER
+            value: Console
+          - name: SPRING_CONFIG_LOCATION
+            value: "/data/appconfig/application.properties"
+          volumeMounts:
+          - name: application-config
+            mountPath: "/data/appconfig"
+            readOnly: true
+      volumes:
+        - name: application-config
+          configMap:
+            name: issues-config
+    
